@@ -1,0 +1,28 @@
+#?/usr/bin/env bash
+
+
+set -x
+
+workbench_dir="/mnt/workbench"
+link_src_dir="$workbench_dir/home.link"
+link_dst_dir=$HOME
+
+tmp_file=`mktemp`
+echo "tmp_file: $tmp_file"
+
+#auto file link
+#export LINK_DIR=$link_src_dir
+#ls -la $link_src_dir | awk -v LINK_DIR=$link_src_dir 'BEGIN { FS = "[0-9]+:[0-9]+ " } { if ( NF > 1 ) { print "ln -sf " LINK_DIR "/\"" $2 "\""} }'  >> $tmp_file
+for f in `ls -a $link_src_dir` ; do
+	echo "ln -sf $link_src_dir/$f $link_dst_dir/" >> $tmp_file
+done
+
+#manaual link
+echo "ln -sf $workbench_dir ~/w" >> $tmp_file
+
+echo "tmp_file: $tmp_file"
+cat $tmp_file
+
+sh $tmp_file
+
+rm $tmp_file
