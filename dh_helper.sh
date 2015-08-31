@@ -9,7 +9,7 @@ exit
 fi
 echo $line
 if [[ $line =~ bysongstart ]] ; then
-	cmd=`echo $line |sed -e 's/bysongstart|\([^|]*\)|\([^|]*\)/echo \2 >  \1.txt/'`
+	cmd=`echo $line |sed -e 's/bysongstart|\([^|]*\)|\([^|]*\)/echo "\2" >  \1.txt/'`
 	echo cmd: $cmd
 	bash -c "$cmd"
 fi
