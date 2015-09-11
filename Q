@@ -1,0 +1,14 @@
+00:
+	add this line to ~/.bashrc
+	source /mnt/workbench/.bashrc
+
+	and exec this in bash:
+	 /mnt/workbench/home.link/bin/create_home_link
+[Ubuntu 14.04.2 LTS \n \l]
+	run 32bit app in 64bit os:
+		http://s.android.com/source/initializing.html
+		
+		this is not needed any more.
+		http://stackoverflow.com/questions/23182765/how-to-install-ia32-libs-in-ubuntu-14-04-lts-trusty-tahr
+	intelliJ notify:
+		https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit
