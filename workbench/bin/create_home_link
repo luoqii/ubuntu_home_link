@@ -3,8 +3,8 @@
 
 set -x
 
-workbench_dir="/mnt/workbench"
-link_src_dir="$workbench_dir/home.link"
+#link_src_dir="$workbench_dir/home.link"
+link_src_dir=`pwd`
 link_dst_dir=$HOME
 
 tmp_file=`mktemp`
@@ -18,7 +18,6 @@ for f in `ls -a $link_src_dir` ; do
 done
 
 #manaual link
-echo "ln -sf $workbench_dir ~/w" >> $tmp_file
 
 echo "tmp_file: $tmp_file"
 cat $tmp_file
