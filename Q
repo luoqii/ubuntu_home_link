@@ -1,9 +1,11 @@
 00:
 	add this line to ~/.bashrc
-	source /mnt/workbench/.bashrc
+	    source ${GIT_DIR}/workbench/.bashrc
+            ln -s ${GIT_DIR}/workbench/bin ~/
 
-	and exec this in bash:
-	 /mnt/workbench/home.link/bin/create_home_link
+	and exec this in home_link dir:
+	    ${GIT_DIR}/workbench/bin/create_home_link
+
 [Ubuntu 14.04.2 LTS \n \l]
 	run 32bit app in 64bit os:
 		http://s.android.com/source/initializing.html
