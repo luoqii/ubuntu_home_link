@@ -1,0 +1,13 @@
+#!/bin/sh
+
+logger "ip down"
+
+baseName=`dirname $0`
+ipList=`cat $baseName/../IP|sed -e '/^#/ s/.*//g' 2>&1`
+for ip in $ipList ; do
+        echo ip: $ip
+
+	echo "route del $ip $PPP_IFACE"
+        route del $ip $PPP_IFACE
+done
+~      

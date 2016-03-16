@@ -1,0 +1,14 @@
+remotename tudou
+linkname tudou
+ipparam tudou
+pty "pptp 174.139.208.58 --nolaunchpppd "
+name tudou
+usepeerdns
+require-mppe
+refuse-eap
+noauth
+
+debug
+
+# adopt defaults from the pptp-linux package
+file /etc/ppp/options.pptp

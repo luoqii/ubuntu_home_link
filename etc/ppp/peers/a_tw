@@ -1,0 +1,14 @@
+remotename a_tw
+linkname a_tw
+ipparam a_tw
+pty "pptp a.twgjsq.com --nolaunchpppd "
+name iGU3688006
+usepeerdns
+require-mppe
+refuse-eap
+noauth
+
+debug
+
+# adopt defaults from the pptp-linux package
+file /etc/ppp/options.pptp
