@@ -40,7 +40,7 @@ for (( ;; )) do
 		echo file: $file
 		head=`head -c 4 $file`
 		echo head: $head
-		if [[ "$head" != "<?xm" && "$head" != "<htm" ]] ; then
+		if [[ "$head" != "<?xm" && "$head" != "<htm" && '$head" != "http" ]] ; then
         		cmd=`echo $line |sed -e 's/bysongend|\([^|]*\)|\([^|]*\)/rm \1.txt/'`
         		echo cmd: $cmd
         		bash -c "$cmd"
