@@ -18,6 +18,8 @@ for f in `ls -a $link_src_dir` ; do
 done
 
 #manaual link
+echo "ln -sf /mnt/workbench ~/w" >> $tmp_file
+echo "ln -sf /mnt/workbench/ubuntu_script/workbench/bin ~" >> $tmp_file
 
 echo "tmp_file: $tmp_file"
 cat $tmp_file
