@@ -1,0 +1,29 @@
+http://blog.csdn.net/maojun1986/article/details/38670047
+
+版权声明：本文为博主原创文章，未经博主允许不得转载。
+1。切换到root权限
+
+       sudo -i
+
+2。进入apt源列表
+
+      cd /etc/apt/sources.list.d
+
+3。添加ubuntu 13.04的源，因为13.10的后续版本废弃了ia32-libs
+
+ echo "deb http://old-releases.ubuntu.com/ubuntu/ raring main restricted universe multiverse" > ia32-libs-raring.list
+
+
+4。更新源并安装ia32-libs
+
+      apt-get update
+
+      apt-get install ia32-libs
+
+
+5。恢复源
+
+      rm ia32-libs-raring.list
+
+      apt-get update
+
