@@ -1,0 +1,14 @@
+<html ng-app="VDH">
+	<head>
+	    <meta charset="UTF-8">
+		<link href="commonPanel.css" type="text/css" rel="stylesheet">
+		<link href="logdetailsPanel.css" type="text/css" rel="stylesheet">
+    </head>
+	<body ng-controller="VDHLogdetailsCtrl" ng-cloak ng-show="checkSize()">
+		<div id="content">
+			<div class="vdh-panel-title" vdh-l10n="log-details"></div>
+			<div class="ld-text">{{log.text}}</div>
+			<pre class="ld-details">{{log.details}}</pre>
+		</div>
+	</body>
+</html>

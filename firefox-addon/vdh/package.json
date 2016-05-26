@@ -1,0 +1,1051 @@
+{
+    "name": "downloadhelper",
+    "title": "Video DownloadHelper",
+    "id": "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}",
+    "description": "Download Videos from the Web",
+    "author": "mig@downloadhelper.net",
+    "license": "Proprietary",
+    "version": "5.6.1",
+    "homepage": "http://www.downloadhelper.net/",
+    "main": "lib/main",
+    "preferences-branch": "dwhelper",
+    "preferences": [
+        {
+            "name": "settings",
+            "title": "Settings",
+            "type": "control",
+            "label": "..."
+        },
+        {
+            "name": "need-prefs-migration",
+            "title": "need-prefs-migration",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "network-probe",
+            "title": "Network probe",
+            "description": "Scan network traffic to detect hits.",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "network-filter-out",
+            "title": "Network filter out",
+            "description": "Regular expression to ignore some media urls.",
+            "type": "string",
+            "value": "/frag\\\\([0-9]+\\\\)/|[&\\\\?]range=[0-9]+-[0-9]+|/silverlight/",
+            "hidden": true
+        },
+        {
+            "name": "mediaweight-threshold",
+            "title": "Size threshold",
+            "description": "Force detect media above this size.",
+            "type": "integer",
+            "value": 1048576,
+            "hidden": true
+        },
+        {
+            "name": "mediaweight-min-size",
+            "title": "Minimum size",
+            "description": "Ignore hits below this size.",
+            "type": "integer",
+            "value": 4096,
+            "hidden": true
+        },
+        {
+            "name": "orphan-expiration",
+            "title": "Orphan expiration timeout",
+            "description": "Timeout in seconds before removing orphan hits.",
+            "type": "integer",
+            "value": 60,
+            "hidden": true
+        },
+        {
+            "name": "icon-activation",
+            "title": "Icon activation",
+            "description": "When to activate the toolbar icon.",
+            "type": "string",
+            "value": "anytab",
+            "hidden": true
+        },
+        {
+            "name": "qualities-max",
+            "title": "Max variants",
+            "description": "Maximum number of displayed variants for a same video.",
+            "type": "integer",
+            "value": 6,
+            "hidden": true
+        },
+        {
+            "name": "auto-pin",
+            "title": "Auto Pin",
+            "description": "Pin hit after download.",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "default-action-0",
+            "title": "Default action 0",
+            "description": "Action to be picked by default in category 0.",
+            "type": "string",
+            "value": "download",
+            "hidden": true
+        },
+        {
+            "name": "default-action-1",
+            "title": "Default action 1",
+            "description": "Action to be picked by default in category 1.",
+            "type": "string",
+            "value": "openlocalfile",
+            "hidden": true
+        },
+        {
+            "name": "default-action-2",
+            "title": "Default action 2",
+            "description": "Action to be picked by default in category 2.",
+            "type": "string",
+            "value": "abort",
+            "hidden": true
+        },
+        {
+            "name": "min-panel-width",
+            "title": "Minimum panel width",
+            "description": "Minimum width of every addon panel",
+            "type": "integer",
+            "value": 320,
+            "hidden": true
+        },
+        {
+            "name": "max-panel-width",
+            "title": "Maximum panel width",
+            "description": "Maximum width of every addon panel",
+            "type": "integer",
+            "value": 500,
+            "hidden": true
+        },
+        {
+            "name": "show-hits-inactive",
+            "title": "Show inactive hits",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "show-hits-orphan",
+            "title": "Show orphan hits",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "show-hits-pinned",
+            "title": "Show pinned hits",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "show-hits-running",
+            "title": "Show running hits",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "show-logs",
+            "title": "Show logs",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "advanced-settings",
+            "title": "Advanced settings",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "adaptative-count",
+            "title": "Number of adaptative entries in the preferred variants",
+            "type": "integer",
+            "value": 4,
+            "hidden": true
+        },
+        {
+            "name": "download.controlled.max",
+            "title": "Maximum simultaneous downloads",
+            "description": "Controls the number of addon-generated downloads running simultaneously to preserve some bandwidth.",
+            "type": "integer",
+            "value": 4,
+            "hidden": true
+        },
+        {
+            "name": "icon-animation",
+            "title": "Icon animation",
+            "description": "Whether the icon animates when some hits are active.",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "icon-marker",
+            "title": "Icon drop-down marker",
+            "description": "Display drop down triangle on icon.",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "icon-badge",
+            "title": "Icon badge",
+            "description": "Toolbar icon badge display.",
+            "type": "string",
+            "value": "mixed",
+            "hidden": true
+        },
+        {
+            "name": "blacklist-enable",
+            "title": "Enable blacklist",
+            "description": "Prevent some sites to activate media recognition.",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "smartnamer.enabled",
+            "title": "Use smartnaming",
+            "description": "Extract name from the containing page.",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "smartnamer.fname.maxlen",
+            "title": "Max filename length",
+            "description": "Ensures generated file names do not exceed this size.",
+            "type": "integer",
+            "value": 64,
+            "hidden": true
+        },
+        {
+            "name": "smartnamer.fname.spaces",
+            "title": "File names space replacement",
+            "description": "What to do with spaces within file names.",
+            "type": "string",
+            "value": "keep",
+            "hidden": true
+        },
+        {
+            "name": "icon-badge-error",
+            "title": "Badge error display",
+            "description": "Toolbar icon badge display errors if any in priority.",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "hits-animation",
+            "title": "Hits animation",
+            "description": "Animates hits when changed in the lists.",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "supports-vp9",
+            "title": "Supports VP9 codec",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "converter-path",
+            "title": "Converter binary path",
+            "type": "string",
+            "value": "",
+            "hidden": true
+        },
+        {
+            "name": "converter-ok",
+            "title": "Converter working",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "converter-checked",
+            "title": "Converter checked",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "supports-vp9",
+            "title": "Supports VP9 codec",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "conversion-no-pass1-params",
+            "title": "Conversion no pass 1 params",
+            "type": "string",
+            "value": "c:a,ar,ab,b:a",
+            "hidden": true
+        },
+        {
+            "name": "converter-keep-tmp-files",
+            "title": "Keep temporary files after conversion",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "converter-log-calls",
+            "title": "Log converter calls",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "converter-aggreg-tune-h264",
+            "title": "Aggregation H264 with tuned settings",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "converter-threads",
+            "title": "Multi-threaded conversion",
+            "type": "string",
+            "value": "auto",
+            "hidden": true
+        },
+        {
+            "name": "exclude-msasf",
+            "title": "Exclude MS-ASF files from capture",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "media-extensions",
+            "title": "List of extensions to be detected as media",
+            "type": "string",
+            "value": "flv|ram|mpg|mpeg|avi|rm|wmv|mov|asf|mp3|rar|movie|divx|rbs|mp4|mpeg4",
+            "hidden": true
+        },
+        {
+            "name": "safe-mode",
+            "title": "Safe mode",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "sites-order-field",
+            "title": "Order field for supported site",
+            "type": "string",
+            "value": "duration",
+            "hidden": true
+        },
+        {
+            "name": "sites-order-direction",
+            "title": "Order direction for supported site",
+            "type": "integer",
+            "value": 1,
+            "hidden": true
+        },
+        {
+            "name": "download-count",
+            "title": "Download counter",
+            "type": "integer",
+            "value": 0,
+            "hidden": true
+        },
+        {
+            "name": "donate-not-again",
+            "title": "Prevent donation panel",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "donate-not-again-expire",
+            "title": "Expiration for donation panel blocking",
+            "type": "integer",
+            "value": 0,
+            "hidden": true
+        },
+        {
+            "name": "shortcut-icons",
+            "title": "Shortcut icons in main panel",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "commands-section",
+            "title": "Display global commands with words",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "notify-ready",
+            "title": "Display notification when hit ready",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "no-private-notification",
+            "title": "No notification for hits from private windows",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "max-hits-per-source",
+            "title": "Prevent single window from generating many hits",
+            "type": "integer",
+            "value": 15,
+            "hidden": true
+        },
+        {
+            "name": "qr-message-not-again",
+            "title": "Do not display message about QR code",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "medialink-extensions",
+            "title": "URL extension to be captured in the galleries",
+            "type": "string",
+            "value": "jpg|jpeg|gif|png|mpg|mpeg|avi|rm|wmv|mov|flv|mp3|mp4",
+            "hidden": true
+        },
+        {
+            "name": "medialink-max-hits",
+            "title": "Maximum number of gallery links to consider",
+            "type": "integer",
+            "value": 50,
+            "hidden": true
+        },
+        {
+            "name": "medialink-min-files-per-group",
+            "title": "Minimum number of gallery files to consider the group",
+            "type": "integer",
+            "value": 6,
+            "hidden": true
+        },
+        {
+            "name": "medialink-min-img-size",
+            "title": "Minimum image size to consider",
+            "type": "integer",
+            "value": 80,
+            "hidden": true
+        },
+        {
+            "name": "medialink-auto-detect",
+            "title": "Detect galleries automatically on loaded pages",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "medialink-scan-images",
+            "title": "Scan for embedded images in pages",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "medialink-scan-links",
+            "title": "Scan for links to media in pages",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "medialink-index-prefix",
+            "title": "Prefix file names with incremental index",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "extend",
+            "title": "Extend the add-on",
+            "type": "string",
+            "value": "",
+            "hidden": true
+        },
+        {
+            "name": "cmenu-mode",
+            "title": "Context menu mode",
+            "type": "string",
+            "value": "both",
+            "hidden": true
+        },
+        {
+            "name": "context-menu",
+            "title": "Use context menu",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "companion-enabled",
+            "title": "Enable companion button",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "companion-default-op",
+            "title": "Companion default operation",
+            "type": "string",
+            "value": "sites",
+            "hidden": true
+        },
+        {
+            "name": "file-ext-change-not-again",
+            "title": "Do not see file extension change message",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "ignore-embedded",
+            "title": "Ignore embedded videos",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "dlconv-rename",
+            "title": "Offer renaming dialog in download & convert",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "hotkey.default",
+            "title": "Hot key for default action",
+            "type": "string",
+            "value": "alt-shift-d",
+            "hidden": true
+        },
+        {
+            "name": "hotkey.opencompanion",
+            "title": "Hot key for opencompanion",
+            "type": "string",
+            "value": "alt-shift-c",
+            "hidden": true
+        },
+        {
+            "name": "hotkey.detect-gallery",
+            "title": "Hot key for detect-gallery",
+            "type": "string",
+            "value": "alt-shift-g",
+            "hidden": true
+        },
+        {
+            "name": "hotkey.clear-hits",
+            "title": "Hot key for clear-hits",
+            "type": "string",
+            "value": "alt-shift-x",
+            "hidden": true
+        },
+        {
+            "name": "hotkey.supported-sites",
+            "title": "Hot key for supported-sites",
+            "type": "string",
+            "value": "",
+            "hidden": true
+        },
+        {
+            "name": "hotkey.convert-local",
+            "title": "Hot key for convert-local",
+            "type": "string",
+            "value": "",
+            "hidden": true
+        },
+        {
+            "name": "hotkey.toggle-scrap",
+            "title": "Hot key for toggle-scrap",
+            "type": "string",
+            "value": "alt-shift-w",
+            "hidden": true
+        },
+        {
+            "name": "ignore-protected",
+            "title": "Ignore protected videos",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "smartnamer.defMode",
+            "title": "Smartnaming default mode",
+            "type": "string",
+            "value": "page-content",
+            "hidden": true
+        },
+        {
+            "name": "tpsr.state",
+            "title": "Periscope state",
+            "type": "string",
+            "value": "init",
+            "hidden": true
+        },
+        {
+            "name": "tpsr.concurrent-captures",
+            "title": "Number of concurrent captures",
+            "type": "integer",
+            "value": 3,
+            "hidden": true
+        },
+        {
+            "name": "tpsr.start-timeout",
+            "title": "Stream start timeout",
+            "type": "integer",
+            "value": 15,
+            "hidden": true
+        },
+        {
+            "name": "tpsr.duration-timeout",
+            "title": "Maximum stream capture duration",
+            "type": "integer",
+            "value": 3600,
+            "hidden": true
+        },
+        {
+            "name": "tpsr.enabled",
+            "title": "Enable Periscope auto-record",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "tpsr.convert",
+            "title": "Auto convert periscope auto captures",
+            "type": "string",
+            "value": "",
+            "hidden": true
+        },
+        {
+            "name": "toolbar-button",
+            "title": "Toolbar button mode",
+            "type": "string",
+            "value": "unset",
+            "hidden": true
+        },
+        {
+            "name": "display",
+            "title": "Display mode",
+            "type": "string",
+            "value": "normal",
+            "hidden": true
+        },
+        {
+            "name": "scrap.enabled",
+            "title": "Enable screen capture",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "scrap.state",
+            "title": "Screen capture state",
+            "type": "string",
+            "value": "init",
+            "hidden": true
+        },
+        {
+            "name": "scrap.rate",
+            "title": "Capture rate",
+            "type": "integer",
+            "value": 24,
+            "hidden": true
+        },
+        {
+            "name": "scrap.port",
+            "title": "Converter port",
+            "type": "integer",
+            "value": 6872,
+            "hidden": true
+        },
+        {
+            "name": "scrap.8x8-align",
+            "title": "Aligning capture zone to 8x8 scheme",
+            "type": "string",
+            "value": "cut",
+            "hidden": true
+        },
+        {
+            "name": "scrap.mouse",
+            "title": "Mouse recording",
+            "type": "string",
+            "value": "metakey",
+            "hidden": true
+        },
+        {
+            "name": "scrap.mouse.halo.radius",
+            "title": "Mouse halo radius",
+            "type": "integer",
+            "value": 50,
+            "hidden": true
+        },
+        {
+            "name": "scrap.mouse.halo.color",
+            "title": "Mouse halo radius",
+            "type": "string",
+            "value": "#ffff00",
+            "hidden": true
+        },
+        {
+            "name": "scrap.mouse.halo.transparency",
+            "title": "Mouse halo transparency (percent)",
+            "type": "integer",
+            "value": 50,
+            "hidden": true
+        },
+        {
+            "name": "scrap.mouse.pointer.size",
+            "title": "Mouse pointer size",
+            "type": "integer",
+            "value": 30,
+            "hidden": true
+        },
+        {
+            "name": "scrap.applet-start-not-see-again",
+            "title": "Do not display applet start panel",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "scrap.auto-detect",
+            "title": "Scrap auto detect",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "scrap.min-applet-size",
+            "title": "Minimum applet size",
+            "type": "integer",
+            "value": 100,
+            "hidden": true
+        },
+        {
+            "name": "scrap.applet-selector",
+            "title": "Applet selector",
+            "type": "string",
+            "value": "object,video",
+            "hidden": true
+        },
+        {
+            "name": "scrap.convert",
+            "title": "Screen capture conversion",
+            "type": "string",
+            "value": "90195ab2-d891-443c-a164-8f0953ec8975",
+            "hidden": true
+        },
+        {
+            "name": "scrap.extra-args",
+            "title": "Extra parameters to be added on scrap converter call",
+            "type": "string",
+            "value": "",
+            "hidden": true
+        },
+        {
+            "name": "scrap.explicit-kill",
+            "title": "Kill converter process explicitely",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "show-in-toolsmenu",
+            "title": "Display controls in Tools menu",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "storage-last-dir",
+            "title": "Use default browser storage directory",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "downloads-hook-headers",
+            "title": "Hook downloads request to include original headers",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "remove-media-no-cache",
+            "title": "Remove no cache from HTTP media response",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "main-top",
+            "title": "What to display on top of main panel",
+            "type": "string",
+            "value": "icons",
+            "hidden": true
+        },
+        {
+            "name": "f4f.enabled",
+            "title": "F4F detection enabled",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "f4f.frag-index",
+            "title": "F4F handle fragment index",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "f4f.frag-post-url",
+            "title": "F4F append original fragment url suffix",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "tbvws.enabled",
+            "title": "Enable detection on the big video web site",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "tfvws.enabled",
+            "title": "Enable detection on the french video web site",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "tbvws.anonymous",
+            "title": "Make TBVWS meta request anonymous",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "ui.adp.tag",
+            "title": "Show tag on ADP entries",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "ui.adp.grey",
+            "title": "Grey background on ADP entries",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "panels.astab.settings",
+            "title": "Open settings as a tab instead of a panel",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "sites.onsite",
+            "title": "Should sites panel be displayed on the site",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "title.mode",
+            "title": "How to display titles in main panel",
+            "type": "string",
+            "value": "right",
+            "hidden": true
+        },
+        {
+            "name": "hits-goto-tab",
+            "title": "Display go to tab handle on inactive hits",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "linux-license",
+            "title": "Should Linux require conversion license",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "chunks.enabled",
+            "title": "Detect chunked videos",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "dash.enabled",
+            "title": "Detect DASH videos",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "dash.hide-m4s",
+            "title": "Do not show .m4s entries",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "hls.enabled",
+            "title": "Detect HLS videos",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "hls.download-as-m2ts",
+            "title": "Download HLS videos as M2TS",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "mpegts.ends-on-seen-chunk",
+            "title": "Stop when a chunk has already been received",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "mpegts.save-raw",
+            "title": "Save received video chunks",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "mpegts.save-raw-streams",
+            "title": "Save received video chunks streams",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "mpegts.hide-ts",
+            "title": "Do not show .ts entries",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "tbvws.hide-dash",
+            "title": "Do not show dash entries",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "chunks.prefetch-count",
+            "title": "How many segments to download in advance",
+            "type": "integer",
+            "value": 4,
+            "hidden": true
+        },
+        {
+            "name": "chunks.concurrent-downloads",
+            "title": "Maximum segments to be downloaded in parallel",
+            "type": "integer",
+            "value": 4,
+            "hidden": true
+        },
+        {
+            "name": "chunks.download-to-memory",
+            "title": "Avoid downloading chunk to temp file",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "download.retries",
+            "title": "Download retries",
+            "type": "integer",
+            "value": 3,
+            "hidden": true
+        },
+        {
+            "name": "adp.hide",
+            "title": "Hide ADP variants",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "masked.enabled",
+            "title": "Enable masked download",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "masked.default-password",
+            "title": "Masked download using default password",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        },
+        {
+            "name": "convertHelper.lastChecked",
+            "title": "When was ConvertHelper versions checked",
+            "type": "integer",
+            "value": 0,
+            "hidden": true
+        },
+        {
+            "name": "masked.info-not-again",
+            "title": "Do not show information on masked download",
+            "type": "bool",
+            "value": false,
+            "hidden": true
+        },
+        {
+            "name": "avplay.enabled",
+            "title": "Enable converter's player",
+            "type": "bool",
+            "value": true,
+            "hidden": true
+        }
+    ],
+    "engines": {
+        "firefox": ">=36.0b1"
+    },
+    "permissions": {
+        "private-browsing": true,
+        "multiprocess": true
+    }
+}

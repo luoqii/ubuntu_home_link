@@ -1,0 +1,23 @@
+<html ng-app="VDH">
+	<head>
+	    <meta charset="UTF-8">
+		<link href="commonPanel.css" type="text/css" rel="stylesheet">
+		<link href="qrPanel.css" type="text/css" rel="stylesheet">
+    </head>
+	<body ng-controller="VDHQrCtrl" ng-cloak ng-show="checkSize()">
+		<div id="content">
+			<div class="vdh-panel-title" vdh-l10n="about-qr"></div>
+			<div class="qr-content">
+				<div class="qr-text">{{_('file-generated',hit.localFilePath)}}</div>
+				<div class="qr-text" vdh-l10n="explain-qr1"></div>
+				<div class="qr-img"><img src="images/qr-video.png"/></div>
+				<div class="qr-text" vdh-l10n="explain-qr2"></div>
+				<div class="vdh-buttons">
+					<a ng-click="post('goto',{where:'tell-more'})" vdh-l10n="tell-me-more"></a> |
+					<a ng-click="post('goto',{where:'get-license'})" vdh-l10n="get-conversion-license"></a>
+				</div>
+			</div>
+			<input id="checkbox1" type="checkbox" ng-model="prefs['qr-message-not-again']"/> <label for="checkbox1" vdh-l10n="not-see-again"></label>
+		</div>
+	</body>
+</html>

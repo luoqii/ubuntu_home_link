@@ -1,0 +1,180 @@
+<div ng-controller="VDHConverterSettingsCtrl">
+	<div ng-show="convPanel.value=='checking'" class="vdh-container">
+		<div>
+			<div vdh-l10n="checking-converter..." style="height: 120px;"></div>
+		</div>
+	</div>
+	<div ng-show="convPanel.value=='main'">
+		<div class="vdh-settings-category">
+			<span vdh-l10n="conversion"></span> &nbsp;
+			<img src="images/icon-about-64.png" style="width:18px;height:18px;" 
+					ng-click="conversionHelp()"/>
+		</div>
+		<div class="vdh-settings-row" ng-switch on="converter.status">
+			<div ng-switch-when="ready" vdh-l10n="converter-installed"></div>
+			<div ng-switch-when="ready" ng-show="converter.update"><a ng-click="updateConverter()" vdh-l10n="converter.update.version" vdh-l10n-args="{{converter.update.version}}"></a></div>
+			<div ng-switch-default vdh-l10n="converter-not-installed"></div>
+		</div>
+		<div class="vdh-settings-row">
+			<div ng-show="converter.status!='ready'"><a ng-click="installConverter()" vdh-l10n="install-converter"></a></div>
+			<div><a ng-click="checkConverter()" vdh-l10n="recheck-converter"></a></div>
+			<div><a ng-click="conversionOutputs()" vdh-l10n="conversion-outputs"></a></div>
+			<div ng-show="prefs['advanced-settings']"><a ng-click="convPanel.value='rules'" vdh-l10n="config-conversion-rules"></a></div>
+		</div>
+		<div class="vdh-settings-row" ng-show="prefs['advanced-settings']">
+			<div class="vdh-settings-label" vdh-l10n="converter-path"></div>
+			<input type="text" ng-model="prefs['converter-path']" style="width: 200px;">
+			<div ng-show="converter.vp9support" vdh-l10n="supported-vp9"></div>
+			<div ng-show="!converter.vp9support" vdh-l10n="unsupported-vp9"></div>
+		</div>
+		<div class="vdh-settings-row" ng-show="prefs['advanced-settings']">
+			<div class="vdh-settings-label" vdh-l10n="converter-tune-h264"></div>
+			<input type="checkbox" ng-model="prefs['converter-aggreg-tune-h264']"> 
+		</div>
+		<div class="vdh-settings-row" ng-show="prefs['advanced-settings']">
+			<div class="vdh-settings-label" vdh-l10n="avplay.enabled"></div>
+			<input type="checkbox" ng-model="prefs['avplay.enabled']">
+		</div>
+		<div class="vdh-settings-row" ng-show="prefs['advanced-settings']">
+			<div class="vdh-settings-label" vdh-l10n="converter-threads"></div>
+			<select ng-options="m.mode as m.text for m in threadsModes" ng-model="prefs['converter-threads']"></select>
+		</div>
+		<div ng-show="converter.license.status!='unneeded'">
+			<br/>
+			<div class="vdh-settings-category" vdh-l10n="converter-license"></div>
+			<div ng-show="!convPanel.checkingLicense">
+				<div ng-switch on="converter.license.status">
+					<div class="vdh-settings-row" ng-switch-when="accepted">
+						<div vdh-l10n="converter-license-ready"></div>
+					</div>
+					<div class="vdh-settings-row" ng-switch-when="locked">
+						<div vdh-l10n="converter-license-locked"></div>
+						<div><a ng-click="validateLicense(converter.license.key)" vdh-l10n="revalidate-license"></a></div>
+						<div ng-show="convPanel.requestedCheck && converter.license.email"
+							style="text-align:right;">{{_('converter-license-locked-mail',converter.license.email)}}</div>
+					</div>
+					<div class="vdh-settings-row" ng-switch-when="blocked">
+						<div vdh-l10n="converter-license-blocked"></div>
+					</div>
+					<div ng-switch-default>
+						<div class="vdh-settings-row">
+							<div vdh-l10n="unregistered"></div>
+						</div>
+						<div class="vdh-settings-row">
+							<div class="vdh-settings-license-text">
+								<p vdh-l10n="licence-text1"></p>
+								<ul>
+									<li vdh-l10n="license-point1"></li>
+									<li vdh-l10n="license-point2"></li>
+									<li vdh-l10n="license-point3"></li>
+									<li vdh-l10n="license-point4"></li>
+								</ul>
+								<p vdh-l10n="licence-text2"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="vdh-settings-license" ng-class="licenseStatusClasses()" ng-show="converter.license.key && converter.license.status!='invalid'">
+					<div class="vdh-settings-row" ng-show="converter.license.name">
+						<div class="vdh-settings-label" vdh-l10n="registered-name"></div>
+						<div>{{converter.license.name}}</div>
+					</div>
+					<div class="vdh-settings-row" ng-show="converter.license.email">
+						<div class="vdh-settings-label" vdh-l10n="registered-email"></div>
+						<div>{{converter.license.email}}</div>
+					</div>
+					<div class="vdh-settings-row" ng-show="converter.license.key">
+						<div class="vdh-settings-label" vdh-l10n="registered-key"></div>
+						<div>{{converter.license.key}}</div>
+					</div>
+				</div>
+				<div class="vdh-settings-row" ng-show="convPanel.enterLicense">
+					<div class="vdh-settings-label" vdh-l10n="license-key"></div>
+					<input type="text" ng-model="convPanel.inputLicense" vdh-newline="validateIfValid()" style="width: 200px;"> 
+					<div>
+						<a ng-click="getLicenseKey()" vdh-l10n="get-converter-license-key"></a> |
+						<a ng-click="validateLicense()" vdh-l10n="validate-license" 
+						ng-class="{'vdh-disabled': !inputLicenseValid() }"></a></div>							 
+				</div>
+				<div class="vdh-settings-row" ng-show="convPanel.enterLicense">
+					<div></div>
+				</div>
+				<div class="vdh-settings-row" ng-show="!convPanel.enterLicense">
+					<div>
+						<a ng-click="getLicenseKey()" vdh-l10n="get-converter-license"></a> |
+						<a ng-click="convPanel.enterLicense=true" vdh-l10n="register-existing-license"></a>
+					</div>
+				</div>
+			</div>
+			<div ng-show="convPanel.checkingLicense" class="vdh-container">
+				<div>
+					<div vdh-l10n="checking-converter-license..." style="height: 120px;"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div ng-show="convPanel.value=='outputs' && !convPanel.output">
+		<div class="vdh-settings-category">
+			&laquo; <a ng-click="convPanel.value='main';convPanel.current=null">
+				{{_('conversion')}}</a>
+		</div>
+		<div vdh-convconf-editor ng-model="configs"></div>
+	</div>
+	<div ng-show="convPanel.value=='rules' && convPanel.current==null">
+		<div class="vdh-settings-category">
+			<a ng-click="convPanel.value='main'">
+				{{_('conversion')}}</a> 
+			&gt; {{_('conversion-rules')}}
+		</div>
+		<div class="vdh-settings-rules-list">
+			<div class="vdh-settings-rule" ng-repeat="rule in converter.rules track by $index" ng-click="convPanel.current=rule">
+				<div class="vdh-container">
+					<div>
+						<div class="vdh-settings-rule-buttons">
+							<div vdh-panel-button="{image:'images/icon-action-delete-64.png'}" 
+								ng-click="deleteRule($index); $event.stopPropagation()"></div>
+							<div vdh-panel-button="{image:'images/icon-up-64.png'}" 
+								ng-click="upRule($index); $event.stopPropagation()" 
+								ng-class="{'vdh-disabled':$index<1}"></div>
+							<div vdh-panel-button="{image:'images/icon-down-64.png'}" 
+								ng-click="downRule($index); $event.stopPropagation()" 
+								ng-class="{'vdh-disabled':$index>=converter.rules.length-1}"></div>
+						</div>
+						<div class="vdh-settings-rule-label">
+							{{ruleLabel(rule)}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="vdh-settings-links">
+			<a ng-click="newRule()" vdh-l10n="new-rule"></a> |
+			<a ng-click="resetConverterRules()" vdh-l10n="reset-converter-rules"></a>
+		</div>									
+	</div>
+	<div ng-show="convPanel.value=='rules' && convPanel.current!=null && !convPanel.output">
+		<div class="vdh-settings-category">
+			<a ng-click="convPanel.value='main';convPanel.current=null">
+				{{_('conversion')}}</a>
+			&gt; 
+			<a ng-click="convPanel.current=null">
+				{{_('conversion-rules')}}</a> 
+			&gt; {{_('conversion-rule')}}
+		</div>
+		<div id="rule-editor" vdh-rule-editor ng-model="convPanel.current"></div>
+	</div>
+	<div ng-show="convPanel.value=='rules' && convPanel.current!=null && convPanel.output">
+		<div class="vdh-settings-category">
+			<a ng-click="convPanel.value='main';convPanel.current=null;convPanel.output=false">
+				{{_('conversion')}}</a>
+			&gt; 
+			<a ng-click="convPanel.current=null;convPanel.output=false">
+				{{_('conversion-rules')}}</a> 
+			&gt;
+			<a ng-click="convPanel.output=false">
+				{{_('conversion-rule')}}</a> 
+			&gt; {{_('conversion-output')}}
+		</div>
+		<div vdh-convconf-editor ng-model="configs"></div>
+	</div>
+</div>

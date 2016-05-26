@@ -1,0 +1,61 @@
+<html ng-app="VDH">
+	<head>
+	    <meta charset="UTF-8">
+		<link href="lib/bootstrap/bootstrap.min.css" type="text/css" rel="stylesheet">
+		<link href="commonPanel.css" type="text/css" rel="stylesheet">
+		<link href="tpsrPanel.css" type="text/css" rel="stylesheet">
+    </head>
+	<body ng-controller="VDHTpsrCtrl" ng-cloak ng-show="checkSize()">
+		<div id="content">
+			<div class="vdh-panel-title" vdh-l10n="tpsr.title"></div>
+			<div class="vdh-panel-help" vdh-l10n="tpsr.description"></div>
+			<div class="form-group">
+    			<label for="tpsrSearch1" vdh-l10n="tpsr.search-terms"></label>
+    			<input type="text" class="form-control" id="tpsrSearch1" placeholder="{{_('tpsr.search-periscope')}}">
+    			<p class="help-block" vdh-l10n="tpsr.search-help"></p>
+  			</div>
+  			<div ng-show="converter && converter.status!='ready'">
+  				<span vdh-l10n="tpsr.no-converter"></span>
+				<a ng-click="installConverter()" vdh-l10n="install-converter"></a>
+  			</div>
+  			<div ng-show="converter && converter.status=='ready'">
+  				<div ng-show="!converter.configs[prefs['tpsr.convert']]">
+	  				<span  vdh-l10n="tpsr.do-not-convert"></span>
+  					<a vdh-l10n="tpsr.convert" ng-click="prefs['tpsr.convert']='90195ab2-d891-443c-a164-8f0953ec8975'"></a>
+  				</div>
+  				<div ng-show="converter.configs[prefs['tpsr.convert']]">
+	  				<span vdh-l10n="tpsr.convert"></span>
+					<select ng-options="c as v.title for (c, v) in converter.configs" ng-model="prefs['tpsr.convert']"></select>
+  					<a vdh-l10n="tpsr.do-not-convert" ng-click="prefs['tpsr.convert']=''"></a>
+				</div>  				
+  			</div>
+  			<div ng-show="data.advanced">
+  				<div class="vdh-cve-row">
+  					<div class="vdh-cve-label" vdh-l10n="tpsr.concurrent-captures"></div>
+					<input type="number" ng-model="prefs['tpsr.concurrent-captures']" style="width: 40px;"> 
+  				</div>
+  				<div class="vdh-cve-row">
+  					<div class="vdh-cve-label" vdh-l10n="tpsr.start-timeout"></div>
+					<input type="number" ng-model="prefs['tpsr.start-timeout']" style="width: 60px;"> 
+  				</div>
+  				<!-- 
+  				<div class="vdh-cve-row">
+  					<div class="vdh-cve-label" vdh-l10n="tpsr.duration-timeout"></div>
+					<input type="number" ng-model="prefs['tpsr.duration-timeout']" style="width: 60px;"> 
+  				</div>
+  				 -->
+  			</div>
+  			<br/>
+			<div>
+				<input id="checkbox1" type="checkbox" ng-model="data.advanced"/>
+				<label for="checkbox1" vdh-l10n="advanced"></label>
+			</div>
+			<div class="vdh-buttons">
+				<div class="vdh-buttons">
+					<button class="btn btn-success" vdh-l10n="tpsr.start-recording" 
+						ng-click="start()"></button>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
