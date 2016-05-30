@@ -1,0 +1,55 @@
+<html ng-app="VDH">
+	<head>
+	    <meta charset="UTF-8">
+		<link href="lib/bootstrap/bootstrap.min.css" type="text/css" rel="stylesheet">
+		<link href="commonPanel.css" type="text/css" rel="stylesheet">
+		<link href="dlconvPanel.css" type="text/css" rel="stylesheet">
+    </head>
+	<body ng-controller="VDHDLConvCtrl" ng-cloak ng-show="checkSize()">
+		<div id="content">
+			<div class="vdh-panel-title">{{panelTitle}}</div>
+			<div ng-show="!values.editingOutput" class="dlconv-main">
+					<img src="images/icon-about-64.png" style="width:18px;height:18px;" 
+						ng-click="conversionHelp()"/>
+					<span ng-show="hit">{{_('dlconv-will-be-converted',hit.title)}}</span>
+					<span ng-show="!hit && files && files.length==1">{{_('dlconv-will-be-converted',files[0])}}</span>
+					<span ng-show="!hit && files && files.length>1">{{_('dlconv-n-will-be-converted',files.length)}}</span>
+					<span ng-show="!hit && !files && chunkedTitle">{{_('chunk.about-to-be-saved',chunkedTitle)}}</span>
+					<div class="dlconv-output-selector">
+						<select ng-options="c.id as c.title for c in configsArray()" ng-model="currentConfigId.value"></select>
+						<a ng-click="startEditor()" vdh-l10n="dlconv-output-details"></a>
+					</div>
+				    <span ng-show="!chunkedTitle">{{_('dlconv-and-saved-to',storageDirectory.value)}}</span>
+				    <span ng-show="chunkedTitle">{{_('chunk.target',storageDirectory.value)}}</span>
+					<a ng-click="changeDirectory()" vdh-l10n="dlconv-change-directory"></a>
+					<div ng-show="transientStorageDirectory && transientStorageDirectory!=prefs['storagedirectory']">
+						<span vdh-l10n="transient-storagedirectory"></span>
+						<a ng-click="saveTransientStorageDirectory()" vdh-l10n="save-transient-storagedirectory"></a>
+					</div>
+					
+					<div ng-show="renameCheckbox">
+						<input id="checkbox-rename" type="checkbox" ng-model="prefs['dlconv-rename']"/> 
+						<label for="checkbox-rename" vdh-l10n="dlconv-rename"></label>
+					</div>
+					
+					<div ng-show="assembleCheckbox">
+						<input id="checkbox-assemble" type="checkbox" ng-model="prefs['chunk.assemble-native']"/> 
+						<label for="checkbox-assemble" vdh-l10n="chunk.assemble-native"></label>
+						<div ng-show="prefs['chunk.assemble-native']" vdh-l10n="chunk.assemble-native-warn"></div>
+					</div>
+					
+			</div>
+			<div ng-show="values.editingOutput">
+				<div vdh-convconf-editor ng-model="configs"></div>
+			</div>
+			<div class="dlconv-buttons">
+				<button ng-show="values.editingOutput" ng-click="values.editingOutput=false" class="btn btn-primary" vdh-l10n="dlconv-back"></button>
+				<button ng-show="hasDownloadButton" ng-click="downloadOnly()" class="btn btn-primary" vdh-l10n="dlconv-download-only"></button>
+				<button ng-show="hasDownloadConvButton" ng-click="downloadAndConvert()" class="btn btn-success" vdh-l10n="dlconv-download-and-convert"></button>
+				<button ng-show="hasConvertButton" ng-click="convert()" class="btn btn-success" vdh-l10n="dlconv-convert"></button>
+				<button ng-show="hasAssembleButton" ng-click="assembleOnly()" class="btn btn-success" vdh-l10n="chunk.assemble-only"></button>
+				<button ng-show="hasAssembleConvertButton" ng-click="assembleAndConvert()" class="btn btn-success" vdh-l10n="chunk.assemble-and-convert"></button>
+			</div>
+		</div>
+	</body>
+</html>

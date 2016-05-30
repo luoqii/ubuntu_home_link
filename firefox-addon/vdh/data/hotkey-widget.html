@@ -1,0 +1,6 @@
+<div>
+	<select ng-show="key.enabled" ng-options="m.mode as m.text for m in modifiers" ng-model="key.modifier"></select>
+	<select ng-show="key.enabled" ng-options="m.key as m.text for m in keys" ng-model="key.key"></select>
+	&nbsp;
+	<input type="checkbox" ng-model="key.enabled"/>
+</div>

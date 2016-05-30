@@ -1,0 +1,21 @@
+<div class="vdh-rule-editor">
+	<div class="vdh-settings-row">
+		<div class="vdh-settings-label" vdh-l10n="convert"></div>
+		<input type="checkbox" ng-model="rule.convert"/> 
+	</div>
+	<div class="vdh-settings-row">
+		<div class="vdh-settings-label" vdh-l10n="extension"></div>
+		<div vdh-opt-text-input ng-model="rule.ext"></div>
+	</div>
+	<div class="vdh-settings-row">
+		<div class="vdh-settings-label" vdh-l10n="domain"></div>
+		<div vdh-opt-text-input ng-model="rule.domain"></div>
+	</div>
+	<div class="vdh-settings-row vdh-settings-select-row">
+		<div class="vdh-settings-label" vdh-l10n="output"></div>
+		<select ng-options="c as v.title for (c, v) in configs" ng-model="rule.config"></select>
+		<div class="vdh-settings-links">
+			<a ng-click="editOutput()" vdh-l10n="converter-edit-output"></a>
+		</div>
+	</div>
+</div>

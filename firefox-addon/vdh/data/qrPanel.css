@@ -1,0 +1,31 @@
+.qr-content {
+	background-color: White;
+	padding: 6px;
+}
+
+.qr-text {
+	padding: 6px;
+}
+
+.qr-img {
+	padding: 6px;
+	text-align: center;
+}
+
+a {
+    -moz-text-decoration-color: -moz-use-text-color;
+    -moz-text-decoration-line: none;
+    -moz-text-decoration-style: solid;
+    color: #337ab7;
+}
+
+a:focus, a:hover {
+    -moz-text-decoration-line: underline;
+}
+
+a:active, a:hover {
+	outline-color: -moz-use-text-color;
+	outline-style: none;
+	outline-width: 0;
+}
+

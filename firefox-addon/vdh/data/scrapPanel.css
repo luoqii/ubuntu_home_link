@@ -1,0 +1,9 @@
+#content {
+	background-color: White;
+}
+
+.warning {
+	background-color: #fee;
+	padding: 6px;
+	font-weight: bold;
+}
